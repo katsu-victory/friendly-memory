@@ -1,6 +1,6 @@
 async function getUserCount(userId) {
     try {
-        const response = await fetch(`https://script.google.com/macros/s/AKfycby1afBXUJHs773DqWPYlasCduw4wFv2bmkbg4AZPvqQ7RT3dSAihLZPfMb9XiV9MyFt/exec?userId=${userId}`);
+        const response = await fetch(`https://script.google.com/macros/s/AKfycbwq7z-Jsfy0rfT-roWRjcJ5csYRVO6t7iOoFOwnvfoNPCfIyPGUCnlsQPx2T9qRx1oV/exec?userId=${userId}`);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         return data.count || 1;
@@ -111,7 +111,7 @@ async function suggestAndSubmit(event) {
     };
 
     try {
-        await fetch("https://script.google.com/macros/s/AKfycby1afBXUJHs773DqWPYlasCduw4wFv2bmkbg4AZPvqQ7RT3dSAihLZPfMb9XiV9MyFt/exec", {
+        await fetch("https://script.google.com/macros/s/AKfycbwq7z-Jsfy0rfT-roWRjcJ5csYRVO6t7iOoFOwnvfoNPCfIyPGUCnlsQPx2T9qRx1oV/exec", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             mode: "no-cors",
