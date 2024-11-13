@@ -122,3 +122,27 @@ async function suggestAndSubmit(event) {
         alert("データ送信中にエラーが発生しました。");
     }
 }
+
+function submitFeedback() {
+    const userId = document.getElementById("userId").value;
+    const heartRate = document.getElementById("heartRate").value;
+    const RPE = document.getElementById("RPE").value;
+    const feedback = document.getElementById("feedback").value;
+
+    const feedbackData = {
+        type: "feedback",
+        heartRate: heartRate,
+        RPE: RPE,
+        feedback: feedback,
+        userId: userId
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbwq7z-Jsfy0rfT-roWRjcJ5csYRVO6t7iOoFOwnvfoNPCfIyPGUCnlsQPx2T9qRx1oV/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        mode: "no-cors",
+        body: JSON.stringify(feedbackData)
+    })
+    .then(response => console.log("フィードバックが送信されました。"))
+    .catch(error => console.error("フィードバック送信中にエラーが発生しました:", error));
+}
