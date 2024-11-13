@@ -1,4 +1,14 @@
-document.getElementById("suggestForm").addEventListener("submit", suggestAndSubmit);
+async function getUserCount(userId) {
+    try {
+        const response = await fetch(`https://script.google.com/macros/s/AKfycby1afBXUJHs773DqWPYlasCduw4wFv2bmkbg4AZPvqQ7RT3dSAihLZPfMb9XiV9MyFt/exec?userId=${userId}`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        return data.count || 1;
+    } catch (error) {
+        console.error("カウントデータの取得中にエラーが発生しました:", error);
+        return 1;
+    }
+}
 
 async function suggestAndSubmit(event) {
     event.preventDefault();
@@ -17,29 +27,18 @@ async function suggestAndSubmit(event) {
     ];
 
     let course;
-    if (count >= 1 && count <= 3) {
-        course = 1;
-    } else if (count >= 4 && count <= 6) {
-        course = 2;
-    } else if (count >= 7 && count <= 9) {
-        course = 3;
-    } else if (count >= 10 && count <= 12) {
-        course = 4;
-    } else if (count >= 13 && count <= 15) {
-        course = 5;
-    } else {
-        course = 6;
-    }
+    if (count >= 1 && count <= 3) course = 1;
+    else if (count >= 4 && count <= 6) course = 2;
+    else if (count >= 7 && count <= 9) course = 3;
+    else if (count >= 10 && count <= 12) course = 4;
+    else if (count >= 13 && count <= 15) course = 5;
+    else course = 6;
 
     let stopExercise = false;
     symptoms.forEach(value => {
-        if (value === '重度') {
-            stopExercise = true;
-        } else if (value === '中程度') {
-            course = Math.max(course - 2, 1);
-        } else if (value === '軽度') {
-            course = Math.max(course - 1, 1);
-        }
+        if (value === '重度') stopExercise = true;
+        else if (value === '中程度') course = Math.max(course - 2, 1);
+        else if (value === '軽度') course = Math.max(course - 1, 1);
     });
 
     const programSuggestion = document.getElementById('program-suggestion');
@@ -47,14 +46,58 @@ async function suggestAndSubmit(event) {
         programSuggestion.innerHTML = "運動中止が推奨されます。体調を整えてから再開しましょう。";
     } else {
         const courseLinks = {
-            1: "https://forms.gle/5U6NiNpwS5zwpBhdA",
-            2: "https://forms.gle/SwrqqV44AddakW3E7",
-            3: "https://forms.gle/ZrLYJJnHHigH1wuC7",
-            4: "https://forms.gle/WoSL5G6CxAYR7Mvs6",
-            5: "https://forms.gle/VGwBYdtgL2D8GXSE9",
-            6: "https://forms.gle/rc1dBT3chiJEQdZo8"
+            1: {
+                video1: "https://www.youtube.com/embed/vvoh9yFWjY8",
+                description1: "コース1はその場でスクワットを行います。",
+                video3: "https://www.youtube.com/embed/6D6A6FTxK58",
+                description2: "シンプルな運動ですが、心拍数を上げることを意識しましょう。"
+            },
+            2: {
+                video1: "https://www.youtube.com/embed/vvoh9yFWjY8",
+                video2: "https://www.youtube.com/embed/L3HoW5aH1b0",
+                description1: "コース2はスクワットとフロントランジを行います。",
+                video3: "https://www.youtube.com/embed/esmG0gBu6XA",
+                description2: "フロントランジはバランスに気を付けて行いましょう。"
+            },
+            3: {
+                video1: "https://www.youtube.com/embed/lHwCOokLt1Q",
+                video2: "https://www.youtube.com/embed/NX9STcriOLw",
+                description1: "コース3はスクワット+フロントランジとスケーターズランジを行います。",
+                video3: "https://www.youtube.com/embed/l8tC6trfXsw",
+                description2: "スケーターズランジはバランスに気を付けて行いましょう。"
+            },
+            4: {
+                video1: "https://www.youtube.com/embed/lHwCOokLt1Q",
+                video2: "https://www.youtube.com/embed/cth6_ZT_Atc",
+                description1: "コース4はスクワット+フロントランジとスケーターズランジを行います。",
+                video3: "https://www.youtube.com/embed/c0zrjIvGO7Q",
+                description2: "ジャンプして着地する際は、真っ直ぐ着地して、バランスを取りましょう。"
+            },
+            5: {
+                video1: "https://www.youtube.com/embed/7vOnajWFnhQ",
+                video2: "https://www.youtube.com/embed/cth6_ZT_Atc",
+                description1: "コース5はスクワットスラストとスケーターズランジを行います。",
+                video3: "https://www.youtube.com/embed/eeYbg324mzE",
+                description2: "膝の曲げ伸ばしに気を付けて行いましょう。"
+            },
+            6: {
+                video1: "https://www.youtube.com/embed/WdTU-oJQDOI",
+                video2: "https://www.youtube.com/embed/cth6_ZT_Atc",
+                description1: "コース6はバーピーとスケーターズランジを行います。",
+                video3: "https://www.youtube.com/embed/DZxHenXtZUY",
+                description2: "膝と腰の曲げ伸ばしに気を付けて行いましょう。"
+            }
         };
-        programSuggestion.innerHTML = `推奨される運動コース: コース ${course} <br><a href="${courseLinks[course]}" target="_blank">コース${course}の詳細はこちら</a>`;
+
+        const selectedCourse = courseLinks[course];
+        programSuggestion.innerHTML = `
+            <p>本日の運動プログラム: コース ${course}</p>
+            <p>${selectedCourse.description1}</p>
+            <iframe width="560" height="315" src="${selectedCourse.video1}" frameborder="0" allowfullscreen></iframe>
+            ${selectedCourse.video2 ? `<iframe width="560" height="315" src="${selectedCourse.video2}" frameborder="0" allowfullscreen></iframe>` : ''}
+            <p>${selectedCourse.description2}</p>
+            ${selectedCourse.video3 ? `<iframe width="560" height="315" src="${selectedCourse.video3}" frameborder="0" allowfullscreen></iframe>` : ''}
+        `;
     }
 
     const exerciseDateData = {
@@ -68,7 +111,7 @@ async function suggestAndSubmit(event) {
     };
 
     try {
-        await fetch("https://script.google.com/macros/s/AKfycbwt4C9BB2ohyoYiPNq9moCOa4of-WGdLFrE1TBSRs4b7AI7Xz_eQNiCFxquRlkzlCT3/exec", {
+        await fetch("https://script.google.com/macros/s/AKfycby1afBXUJHs773DqWPYlasCduw4wFv2bmkbg4AZPvqQ7RT3dSAihLZPfMb9XiV9MyFt/exec", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             mode: "no-cors",
