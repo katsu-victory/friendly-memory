@@ -48,7 +48,7 @@ async function suggestAndSubmit(event) {
         const courseLinks = {
             1: {
                 video1: "https://www.youtube.com/embed/vvoh9yFWjY8",
-                description1: "コース1はその場でスクワットを行います。",
+                description1: "コース1はその場でスクワットを行います。<br>心拍数を意識して行いましょう。",
                 video3: "https://www.youtube.com/embed/6D6A6FTxK58",
                 description2: "シンプルな運動ですが、心拍数を上げることを意識しましょう。"
             },
