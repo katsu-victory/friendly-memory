@@ -91,11 +91,11 @@ async function suggestAndSubmit(event) {
 
         const selectedCourse = courseLinks[course];
         programSuggestion.innerHTML = `
-            <p>本日の運動プログラム: コース ${course}</p>
-            <p>${selectedCourse.description1}</p>
+            <p style="font-size: 18px; font-weight: bold; color: #333;">本日の運動プログラム: コース ${course}</p>
+            <p style="font-size: 16px; color: #555;">${selectedCourse.description1}</p>
             <iframe width="560" height="315" src="${selectedCourse.video1}" frameborder="0" allowfullscreen></iframe>
             ${selectedCourse.video2 ? `<iframe width="560" height="315" src="${selectedCourse.video2}" frameborder="0" allowfullscreen></iframe>` : ''}
-            <p>${selectedCourse.description2}</p>
+            <p style="font-size: 16px; color: #555;">${selectedCourse.description2}</p>
             ${selectedCourse.video3 ? `<iframe width="560" height="315" src="${selectedCourse.video3}" frameborder="0" allowfullscreen></iframe>` : ''}
         `;
     }
