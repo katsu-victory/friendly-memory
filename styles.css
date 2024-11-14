@@ -107,3 +107,21 @@ button:hover {
     font-size: 18px;
     color: #007bff;
 }
+
+/* 動画埋め込みのレスポンシブ対応 */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 アスペクト比のためのパディング */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
