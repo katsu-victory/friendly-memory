@@ -93,10 +93,10 @@ async function suggestAndSubmit(event) {
         programSuggestion.innerHTML = `
             <p style="font-size: 18px; font-weight: bold; color: #333;">本日の運動プログラム: コース ${course}</p>
             <p style="font-size: 16px; color: #555;">${selectedCourse.description1}</p>
-            <iframe width="560" height="315" src="${selectedCourse.video1}" frameborder="0" allowfullscreen></iframe>
-            ${selectedCourse.video2 ? `<iframe width="560" height="315" src="${selectedCourse.video2}" frameborder="0" allowfullscreen></iframe>` : ''}
+            <div class="video-container"><iframe width="560" height="315" src="${selectedCourse.video1}" frameborder="0" allowfullscreen></iframe></div>
+            ${selectedCourse.video2 ? `<div class="video-container"><iframe width="560" height="315" src="${selectedCourse.video2}" frameborder="0" allowfullscreen></iframe></div>` : ''}
             <p style="font-size: 16px; color: #555;">${selectedCourse.description2}</p>
-            ${selectedCourse.video3 ? `<iframe width="560" height="315" src="${selectedCourse.video3}" frameborder="0" allowfullscreen></iframe>` : ''}
+            ${selectedCourse.video3 ? `<div class="video-container"><iframe width="560" height="315" src="${selectedCourse.video3}" frameborder="0" allowfullscreen></iframe></div>` : ''}
         `;
     }
 
