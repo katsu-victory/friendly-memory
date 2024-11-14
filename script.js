@@ -147,10 +147,10 @@ function submitFeedback() {
         mode: "no-cors",
         body: JSON.stringify(feedbackData)
     })
-    .then(response => console.log("フィードバックが送信されました。"));
+    .then(response => {
+        console.log("フィードバックが送信されました。");
 
-    // すべての画面要素を非表示に
-        
+        // すべての画面要素を非表示に
         document.getElementById("program-suggestion").style.display = "none";
         document.getElementById("feedback-form").style.display = "none";
 
