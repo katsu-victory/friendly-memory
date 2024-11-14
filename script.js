@@ -101,6 +101,7 @@ async function suggestAndSubmit(event) {
     }
 
     // フィードバックフォームを表示する
+    document.getElementById("initial-section").style.display = "none";
     document.getElementById("suggestForm").style.display = "none";
     document.getElementById("feedback-form").style.display = "block";
 
