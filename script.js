@@ -100,6 +100,10 @@ async function suggestAndSubmit(event) {
         `;
     }
 
+    // フィードバックフォームを表示する
+    document.getElementById("suggestForm").style.display = "none";
+    document.getElementById("feedback-form").style.display = "block";
+
     const exerciseDateData = {
         type: "exercise_date",
         userId: userId,
@@ -143,6 +147,19 @@ function submitFeedback() {
         mode: "no-cors",
         body: JSON.stringify(feedbackData)
     })
-    .then(response => console.log("フィードバックが送信されました。"))
+    .then(response => console.log("フィードバックが送信されました。"));
+
+    // すべての画面要素を非表示に
+        
+        document.getElementById("program-suggestion").style.display = "none";
+        document.getElementById("feedback-form").style.display = "none";
+
+        // 「お疲れ様でした。」のメッセージを表示
+        const completionMessage = document.createElement("p");
+        completionMessage.textContent = "お疲れ様でした。";
+        completionMessage.style.fontSize = "24px";
+        completionMessage.style.fontWeight = "bold";
+        document.body.appendChild(completionMessage);
+    })
     .catch(error => console.error("フィードバック送信中にエラーが発生しました:", error));
 }
