@@ -166,7 +166,7 @@ function submitFeedback() {
 }
 async function fetchUserData(userId) {
     try {
-        const response = await fetch("https://script.google.com/macros/s/YourScriptURL/exec", {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbwq7z-Jsfy0rfT-roWRjcJ5csYRVO6t7iOoFOwnvfoNPCfIyPGUCnlsQPx2T9qRx1oV/exec", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -181,9 +181,9 @@ async function fetchUserData(userId) {
             console.log("データが見つかりませんでした。");
         } else {
             console.log("ユーザー情報:", data);
-            document.getElementById("lastExerciseCount").innerText = `前回の実施回数: ${data.exerciseCount}`;
-            document.getElementById("lastHeartRate").innerText = `前回の心拍数: ${data.heartRate}`;
-            document.getElementById("lastRPE").innerText = `前回のRPE: ${data.RPE}`;
+            document.getElementById("exerciseCount").innerText = `前回の実施回数: ${data.exerciseCount}`;
+            document.getElementById("heartRate").innerText = `前回の心拍数: ${data.heartRate}`;
+            document.getElementById("RPE").innerText = `前回のRPE: ${data.RPE}`;
         }
     } catch (error) {
         console.error("ユーザーデータの取得中にエラーが発生しました:", error);
