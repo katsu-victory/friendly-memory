@@ -9,13 +9,21 @@
 <body>
     
 <div id="initial-section">
-    <h1>運動プログラム選択 ver 1.8</h1>
+    <h1>運動プログラム選択 ver 1.9</h1>
     <p>今日の体調や症状に応じた運動プログラムを提案し、データを送信します。以下の症状がある場合は選択してください。</p>
 
     <!-- ユーザーID入力欄 -->
     <div class="form-group">
         <label for="userId">ユーザーID:</label>
         <input type="text" id="userId" placeholder="ユーザーIDを入力してください" required>
+        <button onclick="fetchUserData(document.getElementById('userIdInput').value)">データ取得</button>
+    </div>
+
+    <!-- 前回のデータ表示エリア -->
+    <div id="userData">
+        <p id="lastExerciseCount">前回の実施回数: データなし</p>
+        <p id="lastHeartRate">前回の心拍数: データなし</p>
+        <p id="lastRPE">前回のRPE: データなし</p>
     </div>
 
     <!-- カウント入力欄 -->
