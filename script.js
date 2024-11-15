@@ -181,8 +181,8 @@ async function fetchUserData(userId) {
             console.log("データが見つかりませんでした。");
         } else {
             console.log("ユーザー情報:", data);
-            document.getElementById("lastExerciseCount").innerText = `前回の実施回数: ${data.〇回目}`;
-            document.getElementById("lastHeartRate").innerText = `前回の心拍数: ${data.心拍数}`;
+            document.getElementById("lastExerciseCount").innerText = `前回の実施回数: ${data.exerciseCount}`;
+            document.getElementById("lastHeartRate").innerText = `前回の心拍数: ${data.heartRate}`;
             document.getElementById("lastRPE").innerText = `前回のRPE: ${data.RPE}`;
         }
     } catch (error) {
