@@ -191,12 +191,20 @@ async function fetchUserData(userId) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("fetchDataBtn").onclick = function() {
-        const userId = document.getElementById('userId').value;
-        if (userId) {
-            fetchUserData(userId);
-        } else {
-            console.log("ユーザーIDが入力されていません。");
-        }
-    };
+    const fetchDataBtn = document.getElementById("fetchDataBtn");
+    const userIdInput = document.getElementById("userId");
+
+    // データ取得ボタンのクリックイベント
+    if (fetchDataBtn && userIdInput) {
+        fetchDataBtn.onclick = function() {
+            const userId = userIdInput.value;
+            if (userId) {
+                fetchUserData(userId);
+            } else {
+                alert("ユーザーIDが入力されていません。");
+            }
+        };
+    } else {
+        console.error("HTML要素が見つかりません: fetchDataBtnまたはuserIdInputが存在しません。");
+    }
 });
