@@ -192,7 +192,7 @@ async function fetchUserData(userId) {
 
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("fetchDataBtn").onclick = function() {
-        const userId = document.getElementById('userIdInput').value;
+        const userId = document.getElementById('userId').value;
         if (userId) {
             fetchUserData(userId);
         } else {
