@@ -169,6 +169,7 @@ async function fetchUserData(userId) {
         const response = await fetch("https://script.google.com/macros/s/AKfycbxucMBYuoaKprhXRpYct5xT751N4iVg2VNJK58326rlRI315GsS_qhig0N8oonZSwUe/exec", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
+            mode: 'no-cors',
             body: JSON.stringify({
                 type: "fetch_user_data",
                 userId: userId
