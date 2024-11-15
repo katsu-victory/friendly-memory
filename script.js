@@ -189,3 +189,14 @@ async function fetchUserData(userId) {
         console.error("ユーザーデータの取得中にエラーが発生しました:", error);
     }
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("fetchDataBtn").onclick = function() {
+        const userId = document.getElementById('userIdInput').value;
+        if (userId) {
+            fetchUserData(userId);
+        } else {
+            console.log("ユーザーIDが入力されていません。");
+        }
+    };
+});
