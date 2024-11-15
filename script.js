@@ -164,3 +164,28 @@ function submitFeedback() {
     })
     .catch(error => console.error("フィードバック送信中にエラーが発生しました:", error));
 }
+async function fetchUserData(userId) {
+    try {
+        const response = await fetch("https://script.google.com/macros/s/YourScriptURL/exec", {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                type: "fetch_user_data",
+                userId: userId
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.message === "No data found for the given userId") {
+            console.log("データが見つかりませんでした。");
+        } else {
+            console.log("ユーザー情報:", data);
+            document.getElementById("lastExerciseCount").innerText = `前回の実施回数: ${data.〇回目}`;
+            document.getElementById("lastHeartRate").innerText = `前回の心拍数: ${data.心拍数}`;
+            document.getElementById("lastRPE").innerText = `前回のRPE: ${data.RPE}`;
+        }
+    } catch (error) {
+        console.error("ユーザーデータの取得中にエラーが発生しました:", error);
+    }
+}
